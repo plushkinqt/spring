@@ -24,13 +24,13 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableJpaRepositories("org.yevgen.zinchenko.repository")
 public class Config {
 
-	private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
-	private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
-	private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
-	private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
-	private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
-	private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-	private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
+	private static final String DATABASE_DRIVER = "db.driver";
+	private static final String DATABASE_PASSWORD = "db.password";
+	private static final String DATABASE_URL = "db.url";
+	private static final String DATABASE_USERNAME = "db.username";
+	private static final String HIBERNATE_DIALECT = "hibernate.dialect";
+	private static final String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+	private static final String ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
 
 	@Resource
 	private Environment env;
@@ -38,10 +38,10 @@ public class Config {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-		dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-		dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-		dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+		dataSource.setDriverClassName(env.getRequiredProperty(DATABASE_DRIVER));
+		dataSource.setUrl(env.getRequiredProperty(DATABASE_URL));
+		dataSource.setUsername(env.getRequiredProperty(DATABASE_USERNAME));
+		dataSource.setPassword(env.getRequiredProperty(DATABASE_PASSWORD));
 		return dataSource;
 	}
 
@@ -50,15 +50,15 @@ public class Config {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(dataSource());
 		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-		entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
+		entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(ENTITYMANAGER_PACKAGES_TO_SCAN));
 		entityManagerFactoryBean.setJpaProperties(hibProperties());
 		return entityManagerFactoryBean;
 	}
 
 	private Properties hibProperties() {
 		Properties properties = new Properties();
-		properties.put(PROPERTY_NAME_HIBERNATE_DIALECT,	env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
-		properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+		properties.put(HIBERNATE_DIALECT, env.getRequiredProperty(HIBERNATE_DIALECT));
+		properties.put(HIBERNATE_SHOW_SQL, env.getRequiredProperty(HIBERNATE_SHOW_SQL));
 		return properties;
 	}
 
