@@ -16,10 +16,12 @@ public class Customer {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 	
 	public Customer(){
+		this.id = 0;
+		this.name = "";
 	}
 
 	public Customer(int id, String name){
