@@ -2,9 +2,10 @@
 
 Java REST back-end with Spring framework:four_leaf_clover:
 Technologies used:
--Java EE
--Spring framework
--JPA
--Hibernate
--Tomcat
--Maven
+
+* Java EE
+* Spring framework
+* JPA
+* Hibernate
+* Tomcat
+* Maven
